@@ -43,6 +43,23 @@ struct field *add_new_field(struct field *head, int index, struct field *snake, 
     return new_field;
 }
 
+// function find node by it's field number
+struct field *find_node_by_content(struct field *head, int value){
+    struct field *cursor;
+
+    cursor = head->next; // dont start at the head because head content is NULL
+
+    // navigating through the list until it finds content = value
+    while(cursor->field_number != value){
+        if(cursor->next == NULL) {
+            printf("Not in the list %d", value);
+            return NULL; // value was not in the list
+        }
+        cursor = cursor->next;
+    }
+    return cursor;
+}
+
 int main() {
     srand(time(NULL));
     int number_of_fields;
@@ -72,7 +89,7 @@ int main() {
                     add_new_field(p_head,i,NULL,NULL,1);
                 }
                 // add last field to the board
-                struct field *last_f = add_new_field(p_head,99,NULL,NULL,0);
+                struct field *last_f = add_new_field(p_head,number_of_fields,NULL,NULL,0);
 
                 // navigating through list
                 struct field *cursor = p_head;
@@ -83,6 +100,9 @@ int main() {
                 // print last field nr
                 printf("field nr: %d\n", cursor->field_number);
 
+                p_filed = find_node_by_content(p_head, 30);
+
+                printf("field found: %d", p_filed->field_number);
                 break;
 
             case '2':
