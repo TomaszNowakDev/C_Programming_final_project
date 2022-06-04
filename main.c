@@ -67,6 +67,35 @@ int roll_a_die(){
     return move;
 }
 
+// function play the game takes' pointer to the list head and number of fields on the board
+void play_the_game(struct field *head, int number_of_fields){
+
+    struct field *cursor = head; // cursor declaration to travel through the board
+    int move = 0;
+    int fields_traveled = 0;
+    while(cursor->next != NULL){
+
+        move = roll_a_die();
+
+        printf("\nYou rolled %d\n", move);
+        if(number_of_fields < (fields_traveled + move)){
+            printf("That's too much! there is less squares to the end of the board!\n");
+            move = roll_a_die();
+        } else {
+            fields_traveled = fields_traveled + move;
+            printf("Your position: %d, Number of fields: %d\n", fields_traveled, number_of_fields);
+            for(int i = 0; i < move; i++){
+                cursor = cursor->next;
+            }
+            printf("You are at field %d\n", cursor->field_number);
+        }
+
+        printf("Press enter to continue");
+        getchar();
+    }
+    printf("End of the game, You won!\n");
+}
+
 int main() {
     srand(time(NULL));
     int number_of_fields;
@@ -107,9 +136,7 @@ int main() {
                 // print last field nr
                 printf("field nr: %d\n", cursor->field_number);
 
-                p_filed = find_node_by_content(p_head, 30);
-
-                printf("field found: %d", p_filed->field_number);
+                play_the_game(p_head, number_of_fields); // call the function to play the game
                 break;
 
             case '2':
@@ -117,5 +144,4 @@ int main() {
                 return 0;
         }
     }
-    return 0;
 }
