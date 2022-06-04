@@ -90,6 +90,19 @@ void play_the_game(struct field *head, int number_of_fields){
             printf("You are at field %d\n", cursor->field_number);
         }
 
+        if(cursor->snake != NULL){
+            printf("This field is the head of a snake!\n");
+            cursor = cursor->snake;
+            fields_traveled = cursor->field_number;
+            printf("You slide down the snake, now you are at field %d\n", cursor->field_number);
+        }
+
+        if(cursor->ladder != NULL){
+            printf("This field is the foot of a ladder!\n");
+            cursor = cursor->ladder;
+            fields_traveled = cursor->field_number;
+            printf("You are climbing the ladder, now you are at field %d\n", cursor->field_number);
+        }
         printf("Press enter to continue");
         getchar();
     }
