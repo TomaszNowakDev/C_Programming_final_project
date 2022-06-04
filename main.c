@@ -60,6 +60,13 @@ struct field *find_node_by_content(struct field *head, int value){
     return cursor;
 }
 
+// function to roll a die
+int roll_a_die(){
+    int move = 0;
+    move = (rand() % 6) +1;
+    return move;
+}
+
 int main() {
     srand(time(NULL));
     int number_of_fields;
