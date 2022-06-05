@@ -173,6 +173,7 @@ int main() {
                 // add last field to the board
                 struct field *last_f = add_new_field(p_head,number_of_fields,NULL,NULL,0);
 
+                set_snakes(p_head, number_of_fields, 5);
                 // navigating through list
                 struct field *cursor = p_head;
                 while(cursor->last_field != 0) {
