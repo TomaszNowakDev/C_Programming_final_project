@@ -67,6 +67,39 @@ int roll_a_die(){
     return move;
 }
 
+// function set snakes takes: pointer to head, number of fields, number of snakes.
+void set_snakes(struct field *head, int number_of_fields, int snakes_number) {
+
+    int i = 0; // iterator for num snakes
+    while (i < snakes_number) {
+        // snake's head and tail global declaration
+        int snake_head;
+        struct field *snake_head_find = NULL;
+        struct field *snake_tail_find = NULL;
+
+        // randomly generate number field to set snake's head
+        // making sure that snake's head is not on the first or the last field
+        snake_head = (rand() % (number_of_fields - 2)) + 2;
+        snake_head_find = find_node_by_content(head, snake_head);
+        if (snake_head_find->snake == NULL) { // making sure there is only one snake's head on selected square
+            int snake_length = (rand() % 10) + 1; // randomly generate length of snake
+
+            while ((snake_head - snake_length) <= 1) { // making sure that tail is in the board
+                snake_head = (rand() % (number_of_fields - 2)) + 2;
+                snake_head_find = find_node_by_content(head, snake_head);
+            }
+            // field previous to the field we want holds pointer to the filed we want
+            int previous_field = snake_head - snake_length - 1;
+            snake_tail_find = find_node_by_content(head, previous_field);
+            snake_head_find->snake = snake_tail_find->next;
+            printf("Snake set at field: %d\n", snake_head_find->field_number);
+            i++;
+        } else {
+            printf("There is Snake's head is on this field already!\n");
+        }
+    }
+}
+
 // function play the game takes' pointer to the list head and number of fields on the board
 void play_the_game(struct field *head, int number_of_fields){
 
