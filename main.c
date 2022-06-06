@@ -67,10 +67,11 @@ int roll_a_die(){
     return move;
 }
 
-// function set snakes takes: pointer to head, number of fields, number of snakes.
-void set_snakes(struct field *head, int number_of_fields, int snakes_number) {
+// function set snakes and ladders, takes: pointer to head, number of fields, number of snakes, number of ladders
+void set_snakes_and_ladders(struct field *head, int number_of_fields, int snakes_number, int ladders_number) {
 
     int i = 0; // iterator for num snakes
+    int j = 0; // iterator for num ladder
     while (i < snakes_number) {
         // snake's head and tail global declaration
         int snake_head;
@@ -96,6 +97,32 @@ void set_snakes(struct field *head, int number_of_fields, int snakes_number) {
             i++;
         } else {
             printf("There is Snake's head is on this field already!\n");
+        }
+    }
+    // setting ladders
+    while(j < ladders_number){
+        int foot;
+        struct field *ladder_foot_find = NULL;
+        struct field *ladder_top = NULL;
+
+        foot = (rand() % (number_of_fields - 2)) + 2; // making sure that ladder's foot is not on the first or the last field
+        ladder_foot_find = find_node_by_content(head, foot);
+        // making sure there is no snake's head or ladder's foot on selected field already
+        if(ladder_foot_find->snake == NULL && ladder_foot_find->ladder == NULL){
+            int ladder_length = (rand() % 10) +1; // randomly generate length of ladder
+
+            while((foot + ladder_length) >= number_of_fields){ // making sure the top of the ladder is on the board
+                foot = (rand() % (number_of_fields - 2)) + 2;
+                ladder_foot_find = find_node_by_content(head, foot);
+            }
+
+            int ladder_end = foot + ladder_length -1; // field previous to the field we want holds pointer to the filed we want
+            ladder_top = find_node_by_content(head, ladder_end);
+            ladder_foot_find->ladder = ladder_top->next;
+            printf("Ladder's foot setted at field: %d\n", ladder_foot_find->field_number);
+            j++;
+        } else{
+            printf("There is ladder's foot or snake's head on this field already!\n");
         }
     }
 }
@@ -173,7 +200,7 @@ int main() {
                 // add last field to the board
                 struct field *last_f = add_new_field(p_head,number_of_fields,NULL,NULL,0);
 
-                set_snakes(p_head, number_of_fields, 5);
+                set_snakes_and_ladders(p_head, number_of_fields, 5, 5);
                 // navigating through list
                 struct field *cursor = p_head;
                 while(cursor->last_field != 0) {
