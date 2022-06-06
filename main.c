@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+// global variable declaration
+FILE *f;
+
 // define field struct
 struct field{
     int field_number;
@@ -94,6 +97,7 @@ void set_snakes_and_ladders(struct field *head, int number_of_fields, int snakes
             snake_tail_find = find_node_by_content(head, previous_field);
             snake_head_find->snake = snake_tail_find->next;
             printf("Snake set at field: %d\n", snake_head_find->field_number);
+            fprintf(f,"Snake set at field: %d\n", snake_head_find->field_number);
             i++;
         } else {
             printf("There is Snake's head is on this field already!\n");
@@ -119,7 +123,8 @@ void set_snakes_and_ladders(struct field *head, int number_of_fields, int snakes
             int ladder_end = foot + ladder_length -1; // field previous to the field we want holds pointer to the filed we want
             ladder_top = find_node_by_content(head, ladder_end);
             ladder_foot_find->ladder = ladder_top->next;
-            printf("Ladder's foot setted at field: %d\n", ladder_foot_find->field_number);
+            printf("Ladder's foot set at field: %d\n", ladder_foot_find->field_number);
+            fprintf(f,"Ladder's foot set at field: %d\n", ladder_foot_find->field_number);
             j++;
         } else{
             printf("There is ladder's foot or snake's head on this field already!\n");
@@ -138,35 +143,44 @@ void play_the_game(struct field *head, int number_of_fields){
         move = roll_a_die();
 
         printf("\nYou rolled %d\n", move);
+        fprintf(f,"\nYou rolled %d\n", move);
         if(number_of_fields < (fields_traveled + move)){
             printf("That's too much! there is less squares to the end of the board!\n");
+            fprintf(f,"That's too much! there is less squares to the end of the board!\n");
             move = roll_a_die();
         } else {
             fields_traveled = fields_traveled + move;
             printf("Your position: %d, Number of fields: %d\n", fields_traveled, number_of_fields);
+            fprintf(f,"Your position: %d, Number of fields: %d\n", fields_traveled, number_of_fields);
             for(int i = 0; i < move; i++){
                 cursor = cursor->next;
             }
             printf("You are at field %d\n", cursor->field_number);
+            fprintf(f,"You are at field %d\n", cursor->field_number);
         }
 
         if(cursor->snake != NULL){
             printf("This field is the head of a snake!\n");
+            fprintf(f,"This field is the head of a snake!\n");
             cursor = cursor->snake;
             fields_traveled = cursor->field_number;
             printf("You slide down the snake, now you are at field %d\n", cursor->field_number);
+            fprintf(f,"You slide down the snake, now you are at field %d\n", cursor->field_number);
         }
 
         if(cursor->ladder != NULL){
             printf("This field is the foot of a ladder!\n");
+            fprintf(f,"This field is the foot of a ladder!\n");
             cursor = cursor->ladder;
             fields_traveled = cursor->field_number;
             printf("You are climbing the ladder, now you are at field %d\n", cursor->field_number);
+            fprintf(f,"You are climbing the ladder, now you are at field %d\n", cursor->field_number);
         }
         printf("Press enter to continue");
         getchar();
     }
     printf("End of the game, You won!\n");
+    fprintf(f,"\nEnd of the game, You won!\n");
 }
 
 int main() {
@@ -179,7 +193,16 @@ int main() {
     char option = '\0';
     struct field *p_filed = NULL;
 
+    // opening file and error checking
+    f = fopen("game_report.txt", "w");
+    if(f == NULL){
+        printf("Problem with this file, connection not established!\n");
+        return 1;
+    }
+
     printf("\n\t***********************************\n\t*                                 *\n\t*       Snakes and Ladders        *\n\t*                                 *\n\t***********************************\n");
+    fprintf(f,"\n\t***********************************\n\t*                                 *\n\t*       Snakes and Ladders        *\n\t*                                 *\n\t***********************************\n");
+
     //main game loop
     while(1){
         printf("\nOptions:\n");
@@ -190,9 +213,11 @@ int main() {
         switch(option){
 
             case '1':
-                printf("\nLet's start the game!\n");
                 number_of_fields = (rand() % (upper - lower + 1)) + lower; // random number of fields
                 printf("Numbers of fields: %d\n", number_of_fields);
+                fprintf(f,"Numbers of fields on the board: %d \n", number_of_fields);
+                printf("\nSnakes: %d Ladders: %d\n", number_of_snakes, number_of_ladders);
+                fprintf(f,"Snakes: %d Ladders: %d\n", number_of_snakes, number_of_ladders);
                 // init head
                 struct field *p_head = list_init();
 
@@ -213,7 +238,12 @@ int main() {
                 // print last field nr
                 printf("field nr: %d\n", cursor->field_number);
 
+                printf("\nLet's start the game!\n");
+                fprintf(f,"\nLet's start the game!\n");
+
                 play_the_game(p_head, number_of_fields); // call the function to play the game
+
+                fclose(f); // close the file
                 break;
 
             case '2':
