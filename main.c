@@ -172,11 +172,14 @@ void play_the_game(struct field *head, int number_of_fields){
 int main() {
     srand(time(NULL));
     int number_of_fields;
+    int number_of_snakes = 4;
+    int number_of_ladders = 4;
     int upper = 64;
     int lower = 32;
     char option = '\0';
     struct field *p_filed = NULL;
 
+    printf("\n\t***********************************\n\t*                                 *\n\t*       Snakes and Ladders        *\n\t*                                 *\n\t***********************************\n");
     //main game loop
     while(1){
         printf("\nOptions:\n");
@@ -200,7 +203,7 @@ int main() {
                 // add last field to the board
                 struct field *last_f = add_new_field(p_head,number_of_fields,NULL,NULL,0);
 
-                set_snakes_and_ladders(p_head, number_of_fields, 5, 5);
+                set_snakes_and_ladders(p_head, number_of_fields, number_of_snakes, number_of_ladders);
                 // navigating through list
                 struct field *cursor = p_head;
                 while(cursor->last_field != 0) {
