@@ -183,6 +183,28 @@ void play_the_game(struct field *head, int number_of_fields){
     fprintf(f,"\nEnd of the game, You won!\n");
 }
 
+void free_memory(struct field *head){
+    // free memory allocated by malloc
+    struct field *cursor;
+    for(cursor = head->next; cursor != NULL; cursor = cursor->next){
+        struct field *temp = cursor;
+        cursor = cursor->next;
+        free(temp);
+    }
+}
+
+void print_all_fields(struct field *head){
+    // navigating through list
+    struct field *cursor = head;
+    while(cursor->last_field != 0) {
+        printf("field nr: %d\n", cursor->field_number);
+        cursor = cursor->next;
+    }
+    // print last field nr
+    printf("field nr: %d\n", cursor->field_number);
+
+}
+
 int main() {
     srand(time(NULL));
     int number_of_fields;
@@ -229,14 +251,6 @@ int main() {
                 struct field *last_f = add_new_field(p_head,number_of_fields,NULL,NULL,0);
 
                 set_snakes_and_ladders(p_head, number_of_fields, number_of_snakes, number_of_ladders);
-                // navigating through list
-                struct field *cursor = p_head;
-                while(cursor->last_field != 0) {
-                    printf("field nr: %d\n", cursor->field_number);
-                    cursor = cursor->next;
-                }
-                // print last field nr
-                printf("field nr: %d\n", cursor->field_number);
 
                 printf("\nLet's start the game!\n");
                 fprintf(f,"\nLet's start the game!\n");
@@ -244,6 +258,8 @@ int main() {
                 play_the_game(p_head, number_of_fields); // call the function to play the game
 
                 fclose(f); // close the file
+
+                free_memory(p_head); // free memory allocated with malloc
                 break;
 
             case '2':
