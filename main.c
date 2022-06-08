@@ -46,11 +46,11 @@ struct field *add_new_field(struct field *head, int index, struct field *snake, 
     return new_field;
 }
 
-// function find node by it's field number
+// function find node by it is field number
 struct field *find_node_by_content(struct field *head, int value){
     struct field *cursor;
 
-    cursor = head->next; // dont start at the head because head content is NULL
+    cursor = head->next; // don't start at the head because head content is NULL
 
     // navigating through the list until it finds content = value
     while(cursor->field_number != value){
@@ -136,7 +136,7 @@ void set_snakes_and_ladders(struct field *head, int number_of_fields, int snakes
 void play_the_game(struct field *head, int number_of_fields){
 
     struct field *cursor = head; // cursor declaration to travel through the board
-    int move = 0;
+    int move;
     int fields_traveled = 0;
     while(cursor->next != NULL){
 
@@ -147,7 +147,7 @@ void play_the_game(struct field *head, int number_of_fields){
         if(number_of_fields < (fields_traveled + move)){
             printf("That's too much! there is less squares to the end of the board!\n");
             fprintf(f,"That's too much! there is less squares to the end of the board!\n");
-            move = roll_a_die();
+            roll_a_die();
         } else {
             fields_traveled = fields_traveled + move;
             printf("Your position: %d, Number of fields: %d\n", fields_traveled, number_of_fields);
@@ -205,66 +205,74 @@ void print_all_fields(struct field *head){
 
 }
 
-int main() {
-    srand(time(NULL));
-    int number_of_fields;
-    int number_of_snakes = 4;
-    int number_of_ladders = 4;
-    int upper = 64;
-    int lower = 32;
-    char option = '\0';
-    struct field *p_filed = NULL;
+int main(int argc, char *argv[]){
 
-    // opening file and error checking
-    f = fopen("game_report.txt", "w");
-    if(f == NULL){
-        printf("Problem with this file, connection not established!\n");
-        return 1;
-    }
+    // declaring number of snakes and ladders for args from the command line
+    int number_of_snakes = strtol(argv[1], NULL, 10);
+    int number_of_ladders = strtol(argv[2], NULL, 10);
 
-    printf("\n\t***********************************\n\t*                                 *\n\t*       Snakes and Ladders        *\n\t*                                 *\n\t***********************************\n");
-    fprintf(f,"\n\t***********************************\n\t*                                 *\n\t*       Snakes and Ladders        *\n\t*                                 *\n\t***********************************\n");
+    // if number of arguments is 2 and the numbers of snakes and ladders are not too big
+    if( argc == 3 && (number_of_snakes <= 5 || number_of_ladders <= 5)) {
+        printf("The arguments supplied accepted!\n");
 
-    //main game loop
-    while(1){
-        printf("\nOptions:\n");
-        printf("1. Start the game!\n2. Exit\n>>> ");
-        option = getchar();
-        getchar();
+        srand(time(NULL));
+        int number_of_fields;
+        int upper = 64;
+        int lower = 32;
+        char option = '\0';
+        struct field *p_filed = NULL;
 
-        switch(option){
+        // opening file and error checking
+        f = fopen("game_report.txt", "w");
+        if(f == NULL){
+            printf("Problem with this file, connection not established!\n");
+            return 1;
+        }
 
-            case '1':
-                number_of_fields = (rand() % (upper - lower + 1)) + lower; // random number of fields
-                printf("Numbers of fields: %d\n", number_of_fields);
-                fprintf(f,"Numbers of fields on the board: %d \n", number_of_fields);
-                printf("\nSnakes: %d Ladders: %d\n", number_of_snakes, number_of_ladders);
-                fprintf(f,"Snakes: %d Ladders: %d\n", number_of_snakes, number_of_ladders);
-                // init head
-                struct field *p_head = list_init();
+        printf("\n\t***********************************\n\t*                                 *\n\t*       Snakes and Ladders        *\n\t*                                 *\n\t***********************************\n");
+        fprintf(f,"\n\t***********************************\n\t*                                 *\n\t*       Snakes and Ladders        *\n\t*                                 *\n\t***********************************\n");
 
-                // create linked list and connect fields
-                for(int i=1; i< number_of_fields; i++){
-                    add_new_field(p_head,i,NULL,NULL,1);
-                }
-                // add last field to the board
-                struct field *last_f = add_new_field(p_head,number_of_fields,NULL,NULL,0);
+        //main game loop
+        while(1){
+            printf("\nOptions:\n");
+            printf("1. Start the game!\n2. Exit\n>>> ");
+            option = getchar();
+            getchar();
 
-                set_snakes_and_ladders(p_head, number_of_fields, number_of_snakes, number_of_ladders);
+            switch(option){
 
-                printf("\nLet's start the game!\n");
-                fprintf(f,"\nLet's start the game!\n");
+                case '1':
+                    number_of_fields = (rand() % (upper - lower + 1)) + lower; // random number of fields
+                    printf("Numbers of fields: %d\n", number_of_fields);
+                    fprintf(f,"Numbers of fields on the board: %d \n", number_of_fields);
+                    printf("\nSnakes: %d Ladders: %d\n", number_of_snakes, number_of_ladders);
+                    fprintf(f,"Snakes: %d Ladders: %d\n", number_of_snakes, number_of_ladders);
+                    // init head
+                    struct field *p_head = list_init();
 
-                play_the_game(p_head, number_of_fields); // call the function to play the game
+                    // create linked list and connect fields
+                    for(int i=1; i< number_of_fields; i++){
+                        add_new_field(p_head,i,NULL,NULL,1);
+                    }
+                    // add last field to the board
+                    struct field *last_f = add_new_field(p_head,number_of_fields,NULL,NULL,0);
 
-                fclose(f); // close the file
+                    set_snakes_and_ladders(p_head, number_of_fields, number_of_snakes, number_of_ladders);
 
-                free_memory(p_head); // free memory allocated with malloc
-                break;
+                    printf("\nLet's start the game!\n");
+                    fprintf(f,"\nLet's start the game!\n");
 
-            case '2':
-                printf("Thank you, bye!\n");
-                return 0;
+                    play_the_game(p_head, number_of_fields); // call the function to play the game
+
+                    fclose(f); // close the file
+
+                    // free_memory(p_head); // free memory allocated with malloc
+                    break;
+
+                case '2':
+                    printf("Thank you, bye!\n");
+                    return 0;
+            }
         }
     }
 }
