@@ -212,7 +212,7 @@ int main(int argc, char *argv[]){
     int number_of_ladders = strtol(argv[2], NULL, 10);
 
     // if number of arguments is 2 and the numbers of snakes and ladders are not too big
-    if( argc == 3 && (number_of_snakes <= 5 || number_of_ladders <= 5)) {
+    if( argc == 3 && (number_of_snakes <= 5 && number_of_ladders <= 5 && number_of_snakes >= 1 && number_of_ladders >= 1)) {
         printf("The arguments supplied accepted!\n");
 
         srand(time(NULL));
@@ -274,5 +274,12 @@ int main(int argc, char *argv[]){
                     return 0;
             }
         }
+    } else if(argc > 3 ) {
+        printf("Too many arguments supplied.\n");
+    } else if(argc < 3 ){
+        printf("Two arguments expected.\n");
+    }
+    if(number_of_snakes > 5 || number_of_ladders > 5 || number_of_snakes < 1 || number_of_ladders < 1){
+        printf("The value of arguments cannot be less than 1 and more than 5 each, whole numbers only please.\n");
     }
 }
