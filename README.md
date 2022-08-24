@@ -13,13 +13,6 @@ brings them closer to the final square. If a player moves to a space with the he
 directly back to the space at the other side of the snake. This brings them further away from the
 nal square.
 
-The application should be started from the command line with entering two arguments, the first is the number of snakes on the board, the second is the number of ladders that will be on the board. 
-The number of snakes and ladders must be less than 1 and more than 5 each, whole numbers only, as in the picture below.
-
-![](images/arguments.jpg)
-
-After starting the application, we get information whether the arguments have been correctly entered.
-
 ### Game requirements: 
 * Each square on the game board should be a user-defined structure which holds informa-
   tion about the current position on the game board. The program should check if it is
@@ -41,5 +34,26 @@ After starting the application, we get information whether the arguments have be
 * The last square on the board cannot be occupied by the head of a snake.
 * The first square on the board cannot be occupied by the foot of a ladder.
 * A square can be occupied by at most the foot of one ladder or the head of one snake.
+* The number of snakes and the number of ladders should be provided as two separate
+  command line parameters when the function is called.
+* Program should initalise a new board (of random length) and it should randomly
+  place the number of snakes and ladders as designated by the user.
+* Program should then simulate game play by rolling a die (random number generated
+  between 1 and 6) and navigating through the board (following snakes and ladders where
+  appropriate) until it gets to the final square.
+* Once the program terminates a report of the game-play should be printed to a file. This
+  can be read by the user to determine the path their player followed through the game.
+  This should include the start and end position of each move and whether a snake or a
+  ladder was followed.
+
+### The course of the game
+
+The application should be started from the command line with entering two arguments, the first is the number of snakes on the board, the second is the number of ladders that will be on the board.
+The number of snakes and ladders must be less than 1 and more than 5 each, whole numbers only, as in the picture below.
+
+![](images/arguments.jpg)
+
+After starting the application, we get information whether the arguments have been correctly entered.
+
 
 ![](images/start.jpg)
