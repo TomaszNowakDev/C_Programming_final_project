@@ -81,3 +81,7 @@ If there is a situation that we throw a dice that exceeds the number of squares 
 When the player manages to reach the last square on the board, he wins the game, and the relevant information is displayed.
 
 ![](images/win.jpg)
+
+After the game is over, the program creates a report on the game and saves it in the game_report.txt file.
+
+![](images/report.jpg)
