@@ -49,11 +49,17 @@ nal square.
 ### The course of the game
 
 The application should be started from the command line with entering two arguments, the first is the number of snakes on the board, the second is the number of ladders that will be on the board.
-The number of snakes and ladders must be less than 1 and more than 5 each, whole numbers only, as in the picture below.
+The number of snakes and ladders can't be less than 1 and more than 5 each, whole numbers only, as in the picture below.
 
 ![](images/arguments.jpg)
 
-After starting the application, we get information whether the arguments have been correctly entered.
+After starting the application, we get information whether the arguments have been correctly entered. If there are too many or too few arguments, or there are invalid argument values, the user will be informed and the program will be terminated.
 
 
 ![](images/start.jpg)
+
+In the main menu we have two options, play a new game or exit the program. After selecting first option, the specifications of that particular board which was chosen randomly is printed to the user.
+
+![](images/board_specs.jpg)
+
+The game begins. 
