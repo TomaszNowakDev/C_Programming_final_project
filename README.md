@@ -58,7 +58,7 @@ After starting the application, we get information whether the arguments have be
 
 ![](images/start.jpg)
 
-In the main menu we have two options, play a new game or exit the program. After selecting first option, the specifications of that particular board which was chosen randomly is printed to the user.
+In the main menu we have two options, play a new game or exit the program. After selecting first option, the specifications of that particular board which was chosen randomly is printed to the user. Snakes and ladders are placed on randomly selected fields and the length of the snakes and ladders is randomly selected.
 
 ![](images/board_specs.jpg)
 
@@ -69,3 +69,15 @@ The game begins. The first roll of the die has been made, the screen displays wh
 As the game progresses, the user is informed about his throws and the square he is on. The player hit the field with the foot of the ladder, the information is displayed and the number of the field the user is moving to.
 
 ![](images/ladder.jpg)
+
+If we stop at a field with the snake's head, the information will be displayed, we will be moved to the field with the end of the snake.
+
+![](images/snake.jpg)
+
+If there is a situation that we throw a dice that exceeds the number of squares to the end of the board, the information will be displayed and the players will not move from the square it is on.
+
+![](images/too_much.jpg)
+
+When the player manages to reach the last square on the board, he wins the game, and the relevant information is displayed.
+
+![](images/win.jpg)

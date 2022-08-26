@@ -1,0 +1,96 @@
+
+	***********************************
+	*                                 *
+	*       Snakes and Ladders        *
+	*                                 *
+	***********************************
+Numbers of fields on the board: 47 
+Snakes: 5 Ladders: 4
+Snake set at field: 36
+Snake set at field: 43
+Snake set at field: 46
+Snake set at field: 35
+Snake set at field: 45
+Ladder's foot set at field: 5
+Ladder's foot set at field: 34
+Ladder's foot set at field: 40
+Ladder's foot set at field: 20
+
+Let's start the game!
+
+You rolled 2
+Your position: 2, Number of fields: 47
+You are at field 2
+
+You rolled 6
+Your position: 8, Number of fields: 47
+You are at field 8
+
+You rolled 4
+Your position: 12, Number of fields: 47
+You are at field 12
+
+You rolled 5
+Your position: 17, Number of fields: 47
+You are at field 17
+
+You rolled 6
+Your position: 23, Number of fields: 47
+You are at field 23
+
+You rolled 6
+Your position: 29, Number of fields: 47
+You are at field 29
+
+You rolled 1
+Your position: 30, Number of fields: 47
+You are at field 30
+
+You rolled 6
+Your position: 36, Number of fields: 47
+You are at field 36
+This field is the head of a snake!
+You slide down the snake, now you are at field 29
+
+You rolled 6
+Your position: 35, Number of fields: 47
+You are at field 35
+This field is the head of a snake!
+You slide down the snake, now you are at field 27
+
+You rolled 6
+Your position: 33, Number of fields: 47
+You are at field 33
+
+You rolled 6
+Your position: 39, Number of fields: 47
+You are at field 39
+
+You rolled 2
+Your position: 41, Number of fields: 47
+You are at field 41
+
+You rolled 5
+Your position: 46, Number of fields: 47
+You are at field 46
+This field is the head of a snake!
+You slide down the snake, now you are at field 43
+
+You rolled 3
+Your position: 46, Number of fields: 47
+You are at field 46
+This field is the head of a snake!
+You slide down the snake, now you are at field 43
+
+You rolled 1
+Your position: 44, Number of fields: 47
+You are at field 44
+
+You rolled 4
+That's too much! there is less squares to the end of the board!
+
+You rolled 3
+Your position: 47, Number of fields: 47
+You are at field 47
+
+End of the game, You won!
