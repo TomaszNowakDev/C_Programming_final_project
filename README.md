@@ -62,4 +62,10 @@ In the main menu we have two options, play a new game or exit the program. After
 
 ![](images/board_specs.jpg)
 
-The game begins. 
+The game begins. The first roll of the die has been made, the screen displays what has been rolled on the die. We also see the field we are on and how many fields the board has. To continue the game and make another throw press enter.
+
+![](images/game_started.jpg)
+
+As the game progresses, the user is informed about his throws and the square he is on. The player hit the field with the foot of the ladder, the information is displayed and the number of the field the user is moving to.
+
+![](images/ladder.jpg)
